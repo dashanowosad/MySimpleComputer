@@ -107,19 +107,17 @@ int main(){
 				
 				fscanf(f1, "%c",&space);
 				/////////////перевели в 16-ричную и склеили строку
-				/*sprintf(c, "%01x", com); 
+				sprintf(c, "%01x", com); 
 				strcpy(co,c);
 				if (op > 9) sprintf(o, "%01x", op);
 				else sprintf(o, "0%01x", op);
 				strcat(co,o);		
 				//////////
 				res = from16to10(co);
-				*/
-				res = com;
-				res = res << 8;
-				res |= op;
+				
+				
 				A[adr] = res; 
-				//printf("%d  %d\n",adr,res);
+				printf("%d  %d\n",adr,res);
 			}
 			else {
 				if(strcmp(command, "=") == 0){
@@ -127,7 +125,7 @@ int main(){
 					fscanf(f1, "%s",&command);
 					com = atof(command);
 					A[adr] = com;
-					//printf("%d  %d  \n",adr,com);
+					printf("%d  %d  \n",adr,com);
 				}
 					
 				
