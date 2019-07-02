@@ -1,5 +1,19 @@
 #include "../include/View.h"
 
+int check(int command) {
+	if(
+		command == READ   ||	command == WRITE  ||
+		command == LOAD   ||	command == STORE  ||
+		command == ADD    ||	command == SUB    ||
+		command == DIVIDE ||	command == MUL    ||
+		command == JUMP   ||	command == JNEG   ||
+		command == JZ     ||	command == HALT   ||
+		command == RCL    
+	)
+		return 0;
+	else 
+		return -1;
+}
 
 int mt_clrscr(void){
 printf("\E[H\E[2J");
@@ -42,7 +56,7 @@ void View(int flag){
 	for(i = 0; i < 10; i++){
 		for(j = 0; j < 10; j++){
 			sc_memoryGet(c, &tmp);
-			if(((tmp >> 15) & 0x1) == 0)
+			if(check(tmp >> 8) == 0)
 				sprintf(s, "+%04x", tmp);
 			else{
 				tmp = tmp & 0x7FFF;
@@ -64,7 +78,7 @@ void View(int flag){
 	printf("Accumulator");
 	mt_gotoXY(2, 70);
 	tmp = Accumulator;
-        if(((tmp >> 15) & 0x1) == 0)
+        if(check(tmp >> 8) == 0)
 			sprintf(s, "+%04x", tmp);
 		else {
 			tmp = tmp & 0x7FFF;
@@ -75,8 +89,8 @@ void View(int flag){
 	printf("InstructionCounter");
 	mt_gotoXY(5, 70);
 	tmp = InstructionCounter;
-	if(((tmp >> 15) & 0x1) == 0)
-		sprintf(s, "+%04x", tmp);
+	
+	sprintf(s, "+%04x", tmp);
     printf("%s ", s);
 	mt_gotoXY(7, 68);
     printf("Operation");
@@ -145,7 +159,7 @@ void View(int flag){
 	mt_gotoXY(28, 19);
     	printf("Input/Output");	
 	sc_memoryGet(InstructionCounter, &tmp);
-	if(((tmp >> 15) & 0x1) == 0)
+	if(check(tmp >> 8) == 0)
 		sprintf(s, "+%04x", tmp);
     else {
 		tmp &= 0x7FFF;

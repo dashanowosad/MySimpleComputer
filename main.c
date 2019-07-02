@@ -62,7 +62,7 @@ int console(void) {
 		mt_gotoXY((InstructionCounter / 10) + 2, (InstructionCounter % 10) * 6 + 2);
 		fflush(stdout);
 		sc_memoryGet(InstructionCounter, &tmp);
-		if(((tmp >> 15) & 0x1) == 0) {
+		if(check(tmp >> 8) == 0) {
 			sprintf(z, "+%04x", tmp);
 			fflush(stdout);
 		} else {

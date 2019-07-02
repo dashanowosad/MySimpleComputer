@@ -13,4 +13,5 @@ int mt_setfgcolor(enum colors);
 int mt_setbgcolor(enum colors);
 
 void View(int flag);
+int check(int command);
 #endif
