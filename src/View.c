@@ -34,7 +34,7 @@ int mt_setbgcolor(enum colors B){
 return 0;
 }
 
-void View(void){
+void View(int flag){
 	int tmp, i, j, z = 3, y = 2, c = 0;
 	char s[6];
 	int A[2] = {0x0, 0x0};
@@ -57,7 +57,7 @@ void View(void){
 	bc_box(1, 1, 12, 61);
 	mt_gotoXY(1, 29);
 	printf("Memory");	
-	bc_box(13, 1, 23, 46);
+	bc_box(13, 1, 24, 46);
 	for(i = 1; i < 11; i += 3)
 		bc_box(i, 62, i+2, 82);
 	mt_gotoXY(1, 67);
@@ -86,7 +86,7 @@ void View(void){
     printf("Flags");
 	mt_gotoXY(11, 65 );
 	//printf(" P  M  T  E  D ");			
-	bc_box(13, 47, 23, 82);
+	bc_box(13, 47, 24, 82);
 	mt_gotoXY(13, 48);
     printf("Keys:");
 	mt_gotoXY(14, 48);
@@ -102,14 +102,48 @@ void View(void){
 	mt_gotoXY(19, 48);
 	printf("q  - exit");
 	mt_gotoXY(20, 48);
-	printf("w  - set the value");
+	printf("v  - set the value");
 	mt_gotoXY(21, 48);
-	printf("F5 - accumulator");
+	printf("p  - change regime");
 	mt_gotoXY(22, 48);
+	printf("F5 - accumulator");
+	mt_gotoXY(23, 48);
 	printf("F6 - instructionCounter");
-	bc_box(24, 1, 26, 48);	
-	mt_gotoXY(24, 19);
-    printf("Input/Output");	
+	bc_box(25, 1, 27, 40);
+	mt_gotoXY(26,2);
+	if (flag == 1){
+		mt_setbgcolor(3);
+		mt_setfgcolor(1);
+	}
+	else {
+		mt_setbgcolor(8);
+		mt_setfgcolor(7);	
+	}
+	printf("  1. Arrows: UP, DOWN, LEFT, RIGHT    ");	
+	if (flag == 1) {
+		mt_setbgcolor(8);
+		mt_setfgcolor(7);
+	}
+	bc_box(25, 42, 27, 82);
+	mt_gotoXY(26,43);
+	if (flag == 2){
+		mt_setbgcolor(3);
+		mt_setfgcolor(1);	
+	}
+	else {
+		mt_setbgcolor(8);
+		mt_setfgcolor(7);	
+	}
+	printf("  2. UP: W  DOWN: S  RIGHT: D  LEFT: A ");
+	if (flag == 2) {
+		mt_setbgcolor(8);
+		mt_setfgcolor(7);
+	}
+	mt_gotoXY(25,38);
+	printf("Regime");
+	bc_box(28, 1, 30, 48);	
+	mt_gotoXY(28, 19);
+    	printf("Input/Output");	
 	sc_memoryGet(InstructionCounter, &tmp);
 	if(((tmp >> 15) & 0x1) == 0)
 		sprintf(s, "+%04x", tmp);

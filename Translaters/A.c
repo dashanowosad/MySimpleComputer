@@ -80,7 +80,7 @@ int from16to10(char *S){
 
 int main(){
 	FILE *f1, *f2;
-	f1 = fopen("factorial.txt","r");
+	f1 = fopen("asembler.txt","r");
 	f2 = fopen("factorial.bin", "wb");
 	int A[100], adr,com, op, i, res;
 	char adress[3], command[10], operand[3], result[10];
@@ -127,11 +127,9 @@ int main(){
 					A[adr] = com;
 					printf("%d  %d  \n",adr,com);
 				}
-					
-				
+			
 			}
-			
-			
+		
 		}
 		fclose(f1);
 	}

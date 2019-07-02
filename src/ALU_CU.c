@@ -158,10 +158,10 @@ int CU() {
 			case READ: {
 				alarm(0);
 				rk_mytermrestore();
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Enter cell  value: ");
 				scanf("%d", &tmp);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                                ");
 				sc_memorySet(operand, tmp);
 				rk_mytermregime(0, 1, 1, 0, 0);
@@ -173,9 +173,9 @@ int CU() {
 				alarm(0);
 				rk_mytermrestore();
 				sc_memoryGet(operand, &tmp);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                                ");
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Value = %d", tmp);
 				rk_mytermregime(0, 1, 1, 0, 0);
 				InstructionCounter++;

@@ -12,5 +12,5 @@ int mt_getscreensize(int *rows,int *cols);
 int mt_setfgcolor(enum colors);
 int mt_setbgcolor(enum colors);
 
-void View(void);
+void View(int flag);
 #endif

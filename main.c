@@ -47,12 +47,12 @@ int console(void) {
 	char filename[80];
 	char z[6];
 	int flag = 1;
-	int tmp;
+	int tmp, regime = 1;
 	signal(SIGALRM, timer);
 	signal(SIGUSR1, reset);
     rk_mytermsave();
 	while(flag) {
-		View();
+		View(regime);
 		CheckFlags();
         rk_mytermregime(0, 1, 1, 0, 0);
 		printf(inv);
@@ -74,24 +74,24 @@ int console(void) {
 		fflush(stdout);
 		mt_setbgcolor(8);
         fflush(stdout);
-    	if (key != r) rk_readkey(&key);
+    	if (key != r) rk_readkey(&key, regime);
 		switch(key) {
 			case F5: {
 				rk_mytermrestore();
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Enter Accumulator value: ");
 				scanf("%d", &Accumulator);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                            ");
 				rk_mytermregime(0, 1, 1, 0, 0);
 				break;
 			}
 			case F6: {
             	rk_mytermrestore();
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Enter RC value: ");
 				scanf("%d", &InstructionCounter);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                            ");
                 rk_mytermregime(0, 1, 1, 0, 0);
                 break;
@@ -99,15 +99,15 @@ int console(void) {
 			case q: {
 				flag = 0;
 				rk_mytermrestore();
-				mt_gotoXY(27, 1);
+				mt_gotoXY(31, 1);
 				break;	
 			}
 			case l: {
 				rk_mytermrestore();
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Enter filename: ");
 				scanf("%s", filename);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                           ");
 				sc_memoryLoad(filename);
 				rk_mytermregime(0, 1, 1, 0 ,0);
@@ -116,10 +116,10 @@ int console(void) {
 
 			case s: {
 				rk_mytermrestore();
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Enter filename: ");
 				scanf("%s", filename);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                           ");
 				sc_memorySave(filename);
 				rk_mytermregime(0, 1, 1, 0 ,0);
@@ -129,16 +129,22 @@ int console(void) {
 				raise(SIGUSR1);
 				break;
 			}
-			case w: {
+			case v: {
 				rk_mytermrestore();
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("Enter cell  value: ");
 				scanf("%d", &tmp);
-				mt_gotoXY(25, 2);
+				mt_gotoXY(29, 2);
 				printf("                                           ");
 				sc_memorySet(InstructionCounter, tmp);
 				rk_mytermregime(0, 1, 1, 0, 0);
 				break;
+			}
+			case p:{
+				if (regime == 1) 
+					regime = 2;
+				else
+					regime = 1; 			
 			}
 			case r: {
 				F_reg = 0;
@@ -190,6 +196,7 @@ int console(void) {
 int main() {
 	mt_clrscr();
 	console();
+	printf(vis);
 	return 0;
 }
 

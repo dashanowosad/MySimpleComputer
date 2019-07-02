@@ -37,7 +37,7 @@ int rk_mytermregime (int regime, int vtime, int vmin, int echo, int sigint){
 
 }
 
-int rk_readkey (enum keys *key){
+int rk_readkey (enum keys *key, int flag){
 	char buf[5];
 	int b;
 	printf(F_tab);
@@ -60,26 +60,40 @@ int rk_readkey (enum keys *key){
 	                *key = t;
 		else if (strncmp(buf, "i", 1) == 0)
 	                *key = i;
-	 	else if (strncmp(buf, "w", 1) == 0)
-                        *key = w;
+	 	else if (strncmp(buf, "v", 1) == 0)
+                        *key = v;
+		else if (strncmp(buf, "p", 1) == 0)
+			*key = p;
 		else if (strcmp(buf, "\E[15") == 0)
         	        *key = F5;
 		else if (strcmp(buf, "\E[17") == 0)
         	        *key = F6;
 		else if (strncmp(buf, "q", 1) == 0)
                         *key = q;
-		else if (strncmp(buf, "\E[D", 3) == 0)
-	                *key = LEFT;
-		else if (strncmp(buf, "\E[C", 3) == 0)
-        	        *key = RIGHT;
-		else if (strncmp(buf, "\E[A", 3) == 0)
-        	        *key = UP;
-		else if (strncmp(buf, "\E[B", 3) == 0)
-	                *key = DOWN;
 		else if (strcmp(buf, "\n") == 0)
         	        *key = ENTER;
 		else
         	        *key = NONE;
+		if(flag == 1){
+			if (strncmp(buf, "\E[D", 3) == 0)
+	        	        *key = LEFT;
+			else if (strncmp(buf, "\E[C", 3) == 0)
+        		        *key = RIGHT;
+			else if (strncmp(buf, "\E[A", 3) == 0)
+        		        *key = UP;
+			else if (strncmp(buf, "\E[B", 3) == 0)
+	                	*key = DOWN;
+		}
+		else{
+			if (strncmp(buf, "a", 1) == 0)
+				*key = LEFT;
+			else if (strncmp(buf, "d", 1) == 0)
+        	        	*key = RIGHT;
+			else if (strncmp(buf, "w", 1) == 0)
+        		        *key = UP;
+			else if (strncmp(buf, "s", 1) == 0)
+                        	*key = DOWN;		
+		}
 		return 0;
 	}	
 }
